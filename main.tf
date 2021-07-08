@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">= 0.12.26"
-
   required_providers {
-    aws      = ">= 2.48"
-    template = ">= 2.0"
+    aws = {
+      source  = "hashicorp/aws"
+      version = "3.48.0"
+    }
   }
 }
 
@@ -13,9 +13,9 @@ provider "aws" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "~> 1.26.0"
+  version = "3.2.0"
 
-  name               = "ecs-alb-single-svc"
+  name               = "ecs-vpc"
   cidr               = "10.10.10.0/24"
   azs                = ["us-east-1a", "us-east-1b", "us-east-1c"]
   private_subnets    = ["10.10.10.0/27", "10.10.10.32/27", "10.10.10.64/27"]
