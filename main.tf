@@ -46,8 +46,8 @@ resource "aws_cloudwatch_log_group" "web-server" {
 }
 
 resource "aws_ecs_task_definition" "web-server" {
-  family = "web-server"
-
+  family                = "web-server"
+  networkMode           = "awsvpc"
   container_definitions = templatefile("./ecs-task-definition.json.tpl", { region = "us-east-1" })
 }
 
