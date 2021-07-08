@@ -53,8 +53,8 @@ resource "aws_ecs_task_definition" "hello_world" {
   {
     "name": "hello_world",
     "image": "hello-world",
-    "cpu": 0,
-    "memory": 128,
+    "cpu": 128,
+    "memory": 256,
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
