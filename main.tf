@@ -56,7 +56,7 @@ resource "aws_lb_target_group" "lb" {
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = module.ecs.ecs_cluster_id
 }
 
 resource "aws_ecs_service" "web-server" {
