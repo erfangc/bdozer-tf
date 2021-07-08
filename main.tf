@@ -40,40 +40,37 @@ module "ecs" {
   }
 }
 
-resource "aws_cloudwatch_log_group" "hello_world" {
-  name              = "hello_world"
+resource "aws_cloudwatch_log_group" "web-server" {
+  name              = "web-server"
   retention_in_days = 1
 }
 
-resource "aws_ecs_task_definition" "hello_world" {
-  family = "hello_world"
+resource "aws_ecs_task_definition" "web-server" {
+  family = "web-server"
 
-  container_definitions = <<EOF
-[
-  {
-    "name": "hello_world",
-    "image": "hello-world",
-    "cpu": 128,
-    "memory": 256,
-    "logConfiguration": {
-      "logDriver": "awslogs",
-      "options": {
-        "awslogs-region": "eu-west-1",
-        "awslogs-group": "hello_world",
-        "awslogs-stream-prefix": "complete-ecs"
-      }
-    }
-  }
-]
-EOF
+  container_definitions = templatefile("./ecs-task-definition.json.tpl", { region = "us-east-1" })
 }
 
-resource "aws_ecs_service" "hello_world" {
-  name            = "hello_world"
+resource "aws_lb_target_group" "lb" {
+  name        = "web-server-lb"
+  port        = 80
+  protocol    = "HTTP"
+  target_type = "ip"
+  vpc_id      = aws_vpc.main.id
+}
+
+resource "aws_ecs_service" "web-server" {
+  name            = "web-server"
   cluster         = module.ecs.ecs_cluster_id
-  task_definition = aws_ecs_task_definition.hello_world.arn
+  task_definition = aws_ecs_task_definition.web-server.arn
 
   desired_count = 1
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.lb.arn
+    container_name   = "web-server"
+    container_port   = 80
+  }
 
   deployment_maximum_percent         = 100
   deployment_minimum_healthy_percent = 0
