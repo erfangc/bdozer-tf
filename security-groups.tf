@@ -21,11 +21,12 @@ resource "aws_security_group" "alb-sg" {
   ]
 
   egress = [{
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Egress to internet"
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+    description      = "Egress to internet"
+    from_port        = 0
+    protocol         = "-1"
+    to_port          = 0
   }]
 
   tags = {
@@ -54,14 +55,6 @@ resource "aws_security_group" "task-sg" {
       protocol  = -1
     }
   ]
-
-  egress = [{
-    cidr_blocks = ["0.0.0.0/0"]
-    description = "Egress to internet"
-    from_port   = 0
-    protocol    = "-1"
-    to_port     = 0
-  }]
 
   tags = {
     "Name" = "task-sg"
