@@ -63,8 +63,8 @@ resource "aws_security_group" "task-sg" {
       to_port          = 65535
     },
     {
-      description = "Allow ALB to communicate with Task"
-      security_groups : [aws_security_group.alb-sg.id]
+      description      = "Allow ALB to communicate with Task"
+      security_groups  = [aws_security_group.alb-sg.id]
       cidr_blocks      = []
       ipv6_cidr_blocks = []
       security_groups  = []
