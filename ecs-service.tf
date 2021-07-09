@@ -1,7 +1,7 @@
 resource "aws_ecs_service" "web-server" {
   name            = "web-server"
   cluster         = module.ecs.ecs_cluster_id
-  task_definition = aws_ecs_task_definition.web-server.arn
+  task_definition = "web-server"
 
   desired_count = 1
 
