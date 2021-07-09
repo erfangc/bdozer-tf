@@ -68,10 +68,6 @@ resource "aws_ecs_service" "web-server" {
 
   launch_type = "FARGATE"
 
-  capacity_provider_strategy {
-    weight = 1
-  }
-
   load_balancer {
     target_group_arn = aws_lb_target_group.lb.arn
     container_name   = "web-server"
