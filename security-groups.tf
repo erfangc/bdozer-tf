@@ -65,6 +65,7 @@ resource "aws_security_group" "task-sg" {
     {
       description = "Allow ALB to communicate with Task"
       security_groups : [aws_security_group.alb-sg.id]
+      cidr_blocks      = []
       ipv6_cidr_blocks = []
       security_groups  = []
       prefix_list_ids  = []
