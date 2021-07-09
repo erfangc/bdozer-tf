@@ -23,6 +23,8 @@ resource "aws_security_group" "alb-sg" {
   egress = [{
     cidr_blocks      = ["0.0.0.0/0"]
     ipv6_cidr_blocks = ["::/0"]
+    security_groups  = []
+    self             = false,
     description      = "Egress to internet"
     from_port        = 0
     protocol         = "-1"
