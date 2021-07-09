@@ -8,7 +8,7 @@ resource "aws_ecs_service" "web-server" {
   launch_type = "FARGATE"
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.lb.arn
+    target_group_arn = aws_lb_target_group.lb-tg.arn
     container_name   = "web-server"
     container_port   = 80
   }
