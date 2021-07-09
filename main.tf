@@ -46,9 +46,12 @@ resource "aws_cloudwatch_log_group" "web-server" {
 }
 
 resource "aws_ecs_task_definition" "web-server" {
-  family                = "web-server"
-  network_mode          = "awsvpc"
-  container_definitions = templatefile("./ecs-task-definition.json.tpl", { region = "us-east-1" })
+  family                   = "web-server"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  cpu                      = 128
+  memory                   = 256
+  container_definitions    = templatefile("./ecs-task-definition.json.tpl", { region = "us-east-1" })
 }
 
 resource "aws_lb_target_group" "lb" {
