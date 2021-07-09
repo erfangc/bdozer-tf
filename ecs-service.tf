@@ -14,7 +14,7 @@ resource "aws_ecs_service" "web-server" {
   }
 
   network_configuration {
-    subnets         = module.vpc.public_subnets
+    subnets         = module.vpc.private_subnets
     security_groups = [aws_security_group.task-sg.id]
   }
 
