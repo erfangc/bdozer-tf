@@ -5,18 +5,26 @@ resource "aws_security_group" "alb-sg" {
 
   ingress = [
     {
-      cidr_blocks = [module.vpc.vpc_cidr_block]
-      description = "Ingress from same VPC"
-      from_port   = 0
-      protocol    = "-1"
-      to_port     = 0
+      cidr_blocks      = [module.vpc.vpc_cidr_block]
+      ipv6_cidr_blocks = [module.vpc.vpc_ipv6_cidr_block]
+      security_groups  = []
+      prefix_list_ids  = []
+      self             = false,
+      description      = "Ingress from same VPC"
+      from_port        = 0
+      protocol         = "-1"
+      to_port          = 0
     },
     {
-      cidr_blocks = ["0.0.0.0/0"]
-      description = "Ingress from internet"
-      from_port   = 80
-      protocol    = "-1"
-      to_port     = 80
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+      security_groups  = []
+      prefix_list_ids  = []
+      self             = false,
+      description      = "Ingress from internet"
+      from_port        = 80
+      protocol         = "-1"
+      to_port          = 80
     }
   ]
 
@@ -44,18 +52,26 @@ resource "aws_security_group" "task-sg" {
 
   ingress = [
     {
-      cidr_blocks = [module.vpc.vpc_cidr_block]
-      description = "Ingress from same VPC"
-      from_port   = 0
-      protocol    = "-1"
-      to_port     = 0
+      cidr_blocks      = [module.vpc.vpc_cidr_block]
+      ipv6_cidr_blocks = [module.vpc.vpc_ipv6_cidr_block]
+      security_groups  = []
+      prefix_list_ids  = []
+      self             = false,
+      description      = "Ingress from same VPC"
+      from_port        = 0
+      protocol         = "-1"
+      to_port          = 0
     },
     {
       description = "Allow ALB to communicate with Task"
       security_groups : [aws_security_group.alb-sg.id]
-      from_port = 80
-      to_port   = 80
-      protocol  = -1
+      ipv6_cidr_blocks = []
+      security_groups  = []
+      prefix_list_ids  = []
+      self             = false,
+      from_port        = 80
+      to_port          = 80
+      protocol         = -1
     }
   ]
 
