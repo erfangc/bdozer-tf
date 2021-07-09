@@ -1,4 +1,5 @@
 resource "aws_security_group" "alb-sg" {
+
   name        = "alb-sg"
   description = "Security group for the Application load balancer"
   vpc_id      = module.vpc.vpc_id
@@ -91,4 +92,5 @@ resource "aws_security_group" "task-sg" {
   tags = {
     "Name" = "task-sg"
   }
+
 }
