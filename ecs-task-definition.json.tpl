@@ -13,7 +13,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-region": "$region",
+        "awslogs-region": "${region}",
         "awslogs-group": "web-server",
         "awslogs-stream-prefix": "complete-ecs"
       }
