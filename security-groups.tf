@@ -12,7 +12,7 @@ resource "aws_security_group" "alb-sg" {
       self             = false,
       description      = "Ingress from same VPC"
       from_port        = 0
-      protocol         = "-1"
+      protocol         = "tcp"
       to_port          = 0
     },
     {
@@ -23,7 +23,7 @@ resource "aws_security_group" "alb-sg" {
       self             = false,
       description      = "Ingress from internet"
       from_port        = 80
-      protocol         = "-1"
+      protocol         = "tcp"
       to_port          = 80
     }
   ]
@@ -36,7 +36,7 @@ resource "aws_security_group" "alb-sg" {
     self             = false,
     description      = "Egress to internet"
     from_port        = 0
-    protocol         = "-1"
+    protocol         = "tcp"
     to_port          = 0
   }]
 
@@ -59,7 +59,7 @@ resource "aws_security_group" "task-sg" {
       self             = false,
       description      = "Ingress from same VPC"
       from_port        = 0
-      protocol         = "-1"
+      protocol         = "tcp"
       to_port          = 0
     },
     {
