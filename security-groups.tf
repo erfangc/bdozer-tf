@@ -13,7 +13,7 @@ resource "aws_security_group" "alb-sg" {
       description      = "Ingress from same VPC"
       from_port        = 0
       protocol         = "tcp"
-      to_port          = 0
+      to_port          = 65535
     },
     {
       cidr_blocks      = ["0.0.0.0/0"]
@@ -37,7 +37,7 @@ resource "aws_security_group" "alb-sg" {
     description      = "Egress to internet"
     from_port        = 0
     protocol         = "tcp"
-    to_port          = 0
+    to_port          = 65535
   }]
 
   tags = {
@@ -60,7 +60,7 @@ resource "aws_security_group" "task-sg" {
       description      = "Ingress from same VPC"
       from_port        = 0
       protocol         = "tcp"
-      to_port          = 0
+      to_port          = 65535
     },
     {
       description = "Allow ALB to communicate with Task"
@@ -85,7 +85,7 @@ resource "aws_security_group" "task-sg" {
     description      = "Egress to internet"
     from_port        = 0
     protocol         = "tcp"
-    to_port          = 0
+    to_port          = 65535
   }]
 
   tags = {
