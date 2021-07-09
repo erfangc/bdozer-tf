@@ -71,8 +71,8 @@ resource "aws_security_group" "task-sg" {
       security_groups  = []
       prefix_list_ids  = []
       self             = false,
-      from_port        = 80
-      to_port          = 80
+      from_port        = 8080
+      to_port          = 8080
       protocol         = -1
     }
   ]

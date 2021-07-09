@@ -10,7 +10,7 @@ resource "aws_ecs_service" "web-server" {
   load_balancer {
     target_group_arn = aws_lb_target_group.lb-tg.arn
     container_name   = "web-server"
-    container_port   = 80
+    container_port   = 8080
   }
 
   network_configuration {
