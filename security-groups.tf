@@ -5,8 +5,8 @@ resource "aws_security_group" "alb-sg" {
 
   ingress = [
     {
-      cidr_blocks      = [module.vpc.vpc_cidr_block]
-      ipv6_cidr_blocks = [module.vpc.vpc_ipv6_cidr_block]
+      cidr_blocks      = ["10.10.10.0/24"]
+      ipv6_cidr_blocks = []
       security_groups  = []
       prefix_list_ids  = []
       self             = false,
@@ -52,8 +52,8 @@ resource "aws_security_group" "task-sg" {
 
   ingress = [
     {
-      cidr_blocks      = [module.vpc.vpc_cidr_block]
-      ipv6_cidr_blocks = [module.vpc.vpc_ipv6_cidr_block]
+      cidr_blocks      = ["10.10.10.0/24"]
+      ipv6_cidr_blocks = []
       security_groups  = []
       prefix_list_ids  = []
       self             = false,
