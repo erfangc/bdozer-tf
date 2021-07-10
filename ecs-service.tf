@@ -3,7 +3,7 @@ resource "aws_ecs_service" "web-server" {
   cluster         = module.ecs.ecs_cluster_id
   task_definition = "web-server"
 
-  desired_count = 3
+  desired_count = 0
 
   launch_type = "FARGATE"
 
