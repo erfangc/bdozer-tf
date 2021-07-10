@@ -52,7 +52,10 @@ resource "aws_ecs_task_definition" "task-definition" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = 256
   memory                   = 512
-  container_definitions    = templatefile("${path.module}/ecs-task-definition.json.tpl", { region = "us-east-1", service_name = "${var.service_name}", container_port = var.container_port })
+  container_definitions = templatefile(
+    "${path.module}/ecs-task-definition.json.tpl",
+    { region = "us-east-1", service_name = "${var.service_name}", container_port = "${var.container_port}" }
+  )
 
 }
 

@@ -12,9 +12,9 @@
       },
       "portMappings": [
         {
-          "hostPort": ${container_port},
+          "hostPort": "${container_port}",
           "protocol": "tcp",
-          "containerPort": ${container_port}
+          "containerPort": "${container_port}"
         }
       ],
       "cpu": 128,
