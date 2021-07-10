@@ -1,6 +1,6 @@
 resource "aws_cloudwatch_log_group" "web-server" {
   name              = "web-server"
-  retention_in_days = 1
+  retention_in_days = 2
 }
 
 # resource "aws_ecs_task_definition" "web-server" {
