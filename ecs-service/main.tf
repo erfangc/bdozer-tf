@@ -60,6 +60,13 @@ resource "aws_ecs_task_definition" "task-definition" {
       cpu       = 256
       memory    = 512
       essential = true
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group  = var.service_name,
+          awslogs-region = "us-east-1",
+        }
+      }
       portMappings = [
         {
           containerPort = var.container_port
