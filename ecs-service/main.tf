@@ -17,7 +17,7 @@ resource "aws_lb_target_group" "lb-tg" {
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = var.vpc.vpc_id
+  vpc_id      = var.vpc_id
 }
 
 resource "aws_lb_listener_rule" "static" {
@@ -76,7 +76,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    subnets         = var.vpc.private_subnets
+    subnets         = var.subnets
     security_groups = [aws_security_group.task-sg.id]
   }
 
