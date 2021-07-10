@@ -43,7 +43,7 @@ module "web-server-a" {
 #
 # the ECS services we will be running
 #
-module "web-server-a" {
+module "web-server-b" {
   source              = "./ecs-service"
   vpc                 = module.vpc
   service_name        = "web-server-b"
