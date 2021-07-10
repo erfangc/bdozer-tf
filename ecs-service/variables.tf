@@ -22,6 +22,6 @@ variable "service_name" {
 }
 
 variable "desired_count" {
-  type       = number
-  defdefault = 1
+  type    = number
+  default = 1
 }
