@@ -1,5 +1,11 @@
-variable "vpc" {
-  type = object({})
+variable "vpc_id" {
+  description = "The VPC id to place this service into"
+  type        = string
+}
+
+variable "subnets" {
+  description = "The subnet ids within the VPC to place this service into"
+  type        = list(string)
 }
 
 variable "aws_lb_listener_arn" {

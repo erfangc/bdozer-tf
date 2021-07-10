@@ -12,7 +12,7 @@ resource "aws_lb_listener" "lb-listener" {
   protocol          = "HTTP"
   default_action {
     type = "fixed-response"
-    fixed-response {
+    fixed_response {
       content_type = "application/json"
       message_body = "{\"message\": \"Not Found\"}"
       status_code  = "404"

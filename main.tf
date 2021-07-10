@@ -34,9 +34,11 @@ module "ecs" {
 # the ECS services we will be running
 #
 module "web-server-a" {
-  source              = "./ecs-service"
-  vpc                 = module.vpc
-  service_name        = "web-server-a"
+  source       = "./ecs-service"
+  service_name = "web-server-a"
+
+  vpc_id              = module.vpc.vpc_id
+  subnets             = module.vpc.private_subnets
   aws_lb_listener_arn = aws_lb_listener.lb-listener.arn
 }
 
@@ -44,8 +46,10 @@ module "web-server-a" {
 # the ECS services we will be running
 #
 module "web-server-b" {
-  source              = "./ecs-service"
-  vpc                 = module.vpc
-  service_name        = "web-server-b"
+  source       = "./ecs-service"
+  service_name = "web-server-b"
+
+  vpc_id              = module.vpc.vpc_id
+  subnets             = module.vpc.private_subnets
   aws_lb_listener_arn = aws_lb_listener.lb-listener.arn
 }
