@@ -17,7 +17,7 @@ variable "container_port" {
 
 variable "cluster_id" {
   type    = string
-  default = "my-ecs"
+  default = "dev"
 }
 
 variable "service_name" {
