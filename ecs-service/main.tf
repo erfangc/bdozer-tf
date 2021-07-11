@@ -99,7 +99,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    subnets         = var.vpc.subnets
+    subnets         = var.vpc.private_subnets
     security_groups = [aws_security_group.task-sg.id]
   }
 
