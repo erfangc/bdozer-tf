@@ -29,6 +29,17 @@ resource "aws_security_group" "alb-sg" {
       from_port        = 80
       protocol         = "tcp"
       to_port          = 80
+    },
+    {
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks = ["::/0"]
+      security_groups  = []
+      prefix_list_ids  = []
+      self             = false,
+      description      = "Ingress from internet vai SSL"
+      from_port        = 443
+      protocol         = "tcp"
+      to_port          = 443
     }
   ]
 
