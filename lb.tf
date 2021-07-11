@@ -6,22 +6,6 @@ resource "aws_lb" "lb" {
   subnets            = module.vpc.public_subnets
 }
 
-resource "aws_lb_listener" "https-lb-listener" {
-  load_balancer_arn = aws_lb.lb.arn
-  port              = 443
-  protocol          = "HTTPS"
-  certificate_arn   = "arn:aws:acm:us-east-1:299541157397:certificate/c6f9e12d-d7a6-41ec-b151-00f21a980b15"
-  ssl_policy        = "ELBSecurityPolicy-2016-08"
-  default_action {
-    type = "fixed-response"
-    fixed_response {
-      content_type = "application/json"
-      message_body = "{\"message\": \"SSL!\"}"
-      status_code  = "200"
-    }
-  }
-}
-
 resource "aws_lb_listener" "lb-listener" {
   load_balancer_arn = aws_lb.lb.arn
   port              = 80
