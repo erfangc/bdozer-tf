@@ -1,5 +1,5 @@
 resource "aws_lb" "lb" {
-  name               = "web-server-lb"
+  name               = "ecs-load-balancer"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb-sg.id]
