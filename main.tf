@@ -4,7 +4,7 @@
 module "stock-valuation-service" {
   source        = "./ecs-service"
   service_name  = "stock-valuation-service"
-  desired_count = 1
+  desired_count = 0
 
   vpc                 = module.vpc
   aws_lb_listener_arn = aws_lb_listener.lb-listener.arn
