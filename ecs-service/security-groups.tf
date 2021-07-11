@@ -2,7 +2,7 @@
 resource "aws_security_group" "task-sg" {
   name        = "${var.service_name}-task-sg"
   description = "Security group for the ECS task"
-  vpc_id      = var.vpc.vpc_id
+  vpc_id      = var.service_common_cfgs.vpc_id
 
   ingress = [
     {

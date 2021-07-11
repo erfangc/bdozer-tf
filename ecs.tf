@@ -3,7 +3,4 @@ module "ecs" {
   name               = "dev"
   container_insights = true
   capacity_providers = ["FARGATE"]
-  tags = {
-    Environment = "Development"
-  }
 }

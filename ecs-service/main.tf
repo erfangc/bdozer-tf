@@ -17,11 +17,11 @@ resource "aws_lb_target_group" "lb-tg" {
   port        = var.container_port
   protocol    = "HTTP"
   target_type = "ip"
-  vpc_id      = var.vpc.vpc_id
+  vpc_id      = var.service_common_cfgs.vpc_id
 }
 
 resource "aws_lb_listener_rule" "static" {
-  listener_arn = var.aws_lb_listener_arn
+  listener_arn = var.service_common_cfgs.aws_lb_listener_arn
 
   action {
     type             = "forward"
@@ -30,7 +30,7 @@ resource "aws_lb_listener_rule" "static" {
 
   condition {
     path_pattern {
-      values = ["/${var.service_name}/*"]
+      values = ["/${var.service_name}*"]
     }
   }
 }
@@ -84,7 +84,7 @@ resource "aws_ecs_service" "service" {
   name          = var.service_name
   desired_count = var.desired_count
 
-  cluster = var.cluster_id
+  cluster = var.service_common_cfgs.cluster_id
 
   # we keep the task definition at it's family name
   # as CICD processes will update this
@@ -99,7 +99,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    subnets         = var.vpc.private_subnets
+    subnets         = var.service_common_cfgs.private_subnets
     security_groups = [aws_security_group.task-sg.id]
   }
 
