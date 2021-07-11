@@ -2,7 +2,7 @@ locals {
   service_common_cfgs = {
     vpc_id              = module.vpc.vpc_id
     private_subnets     = module.vpc.private_subnets
-    cluster_id          = module.ecs.name
+    cluster_id          = var.env
     aws_lb_listener_arn = aws_lb_listener.lb-listener.arn
   }
 }
