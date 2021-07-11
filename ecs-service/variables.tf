@@ -5,11 +5,6 @@ variable "vpc" {
   })
 }
 
-variable "subnets" {
-  description = "The subnet ids within the VPC to place this service into"
-  type        = list(string)
-}
-
 variable "aws_lb_listener_arn" {
   type = string
 }

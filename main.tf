@@ -38,7 +38,6 @@ module "web-server-a" {
   service_name = "web-server-a"
 
   vpc                 = module.vpc
-  subnets             = module.vpc.private_subnets
   aws_lb_listener_arn = aws_lb_listener.lb-listener.arn
 }
 
@@ -50,6 +49,5 @@ module "web-server-b" {
   service_name = "web-server-b"
 
   vpc                 = module.vpc
-  subnets             = module.vpc.private_subnets
   aws_lb_listener_arn = aws_lb_listener.lb-listener.arn
 }
