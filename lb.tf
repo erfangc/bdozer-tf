@@ -20,6 +20,12 @@ resource "aws_lb_listener" "lb-listener" {
   }
 }
 
+resource "aws_vpc_endpoint_service" "vpces" {
+  acceptance_required        = false
+  network_load_balancer_arns = [aws_lb.lb.arn]
+  private_dns_name           = "api-services"
+}
+
 output "lb_dns_name" {
   value = aws_lb.lb.dns_name
 }
