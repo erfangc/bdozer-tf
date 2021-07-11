@@ -1,6 +1,8 @@
-variable "vpc_id" {
-  description = "The VPC id to place this service into"
-  type        = string
+variable "vpc" {
+  type = object({
+    vpc_id          = string
+    private_subnets = list(string)
+  })
 }
 
 variable "subnets" {
