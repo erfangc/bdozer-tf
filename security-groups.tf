@@ -26,9 +26,9 @@ resource "aws_security_group" "alb-sg" {
       prefix_list_ids  = []
       self             = false,
       description      = "Ingress from internet"
-      from_port        = 80
+      from_port        = 800
       protocol         = "tcp"
-      to_port          = 80
+      to_port          = 800
     },
     {
       cidr_blocks      = ["0.0.0.0/0"]
