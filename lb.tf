@@ -38,7 +38,6 @@ resource "aws_lb" "nlb" {
   name               = "test-nlb"
   internal           = false
   load_balancer_type = "network"
-  security_groups    = [aws_security_group.alb-sg.id]
   subnets            = module.vpc.public_subnets
 }
 
