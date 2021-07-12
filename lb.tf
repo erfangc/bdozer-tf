@@ -43,7 +43,7 @@ resource "aws_lb" "nlb" {
 }
 
 resource "aws_lb_listener" "nlb-listener" {
-  load_balancer_arn = aws_lb.front_end.arn
+  load_balancer_arn = aws_lb.nlb.arn
   port              = "80"
   protocol          = "TCP"
 
