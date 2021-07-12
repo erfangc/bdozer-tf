@@ -52,3 +52,8 @@ resource "aws_lb_listener" "nlb-listener" {
     target_group_arn = aws_lb_target_group.nlb-tg.arn
   }
 }
+
+resource "aws_vpc_endpoint_service" "vpces" {
+  acceptance_required        = false
+  network_load_balancer_arns = [aws_lb.nlb.arn]
+}
