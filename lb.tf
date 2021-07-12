@@ -28,11 +28,11 @@ output "lb_dns_name" {
 # test out NLBs #
 #################
 resource "aws_lb_target_group" "nlb-tg" {
-  name     = "nlb-tg"
-  port     = 80
-  protocol = "TCP"
-  vpc_id   = module.vpc.vpc_id
-  type     = "ip"
+  name        = "nlb-tg"
+  port        = 80
+  protocol    = "TCP"
+  vpc_id      = module.vpc.vpc_id
+  target_type = "ip"
 }
 
 resource "aws_lb" "nlb" {
