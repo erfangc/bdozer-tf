@@ -32,6 +32,7 @@ resource "aws_lb_target_group" "nlb-tg" {
   port     = 80
   protocol = "TCP"
   vpc_id   = module.vpc.vpc_id
+  type     = "ip"
 }
 
 resource "aws_lb" "nlb" {
