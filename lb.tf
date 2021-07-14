@@ -14,8 +14,12 @@ resource "aws_lb_listener" "lb-listener" {
     type = "fixed-response"
     fixed_response {
       content_type = "application/json"
-      message_body = "{\"message\": \"Not Found\"}"
-      status_code  = "404"
+      message_body = <<-EOF
+{
+  "message": "Ok"
+}
+EOF
+      status_code  = 200
     }
   }
 }
