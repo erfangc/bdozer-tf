@@ -10,7 +10,7 @@ resource "aws_security_group" "task-sg" {
       ipv6_cidr_blocks = []
       security_groups  = []
       prefix_list_ids  = []
-      self             = false,
+      self             = false
       description      = "Ingress from same VPC"
       from_port        = 0
       protocol         = "tcp"
@@ -23,7 +23,7 @@ resource "aws_security_group" "task-sg" {
     ipv6_cidr_blocks = ["::/0"]
     security_groups  = []
     prefix_list_ids  = []
-    self             = false,
+    self             = false
     description      = "Egress to internet"
     from_port        = 0
     protocol         = "tcp"
