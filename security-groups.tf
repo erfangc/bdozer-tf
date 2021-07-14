@@ -33,7 +33,7 @@ resource "aws_security_group" "alb-sg" {
   ]
 
   egress = [{
-    cidr_blocks      = ["10.10.10.0/24"]
+    cidr_blocks      = [module.vpc.vpc_cidr_block]
     ipv6_cidr_blocks = ["::/0"]
     security_groups  = []
     prefix_list_ids  = []
