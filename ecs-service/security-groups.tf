@@ -6,7 +6,7 @@ resource "aws_security_group" "task-sg" {
 
   ingress = [
     {
-      cidr_blocks      = ["10.10.10.0/24"]
+      cidr_blocks      = [var.service_common_cfgs.vpc_cidr_block]
       ipv6_cidr_blocks = []
       security_groups  = []
       prefix_list_ids  = []

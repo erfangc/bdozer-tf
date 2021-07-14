@@ -16,6 +16,7 @@ variable "desired_count" {
 variable "service_common_cfgs" {
   type = object({
     vpc_id              = string
+    vpc_cidr_block      = string
     private_subnets     = list(string)
     cluster_id          = string
     aws_lb_listener_arn = string
