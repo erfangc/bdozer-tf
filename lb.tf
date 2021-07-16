@@ -14,7 +14,7 @@ resource "aws_lb_listener" "lb-listener" {
     type = "fixed-response"
     fixed_response {
       content_type = "application/json"
-      message_body = jsondecode({
+      message_body = jsonencode({
         message = "Ok",
         timestamp = timestamp()
       })
