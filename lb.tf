@@ -1,5 +1,4 @@
 resource "aws_lb" "lb" {
-  count = 0
   name               = "ecs-load-balancer"
   internal           = false
   load_balancer_type = "application"
