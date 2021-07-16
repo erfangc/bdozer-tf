@@ -14,11 +14,10 @@ resource "aws_lb_listener" "lb-listener" {
     type = "fixed-response"
     fixed_response {
       content_type = "application/json"
-      message_body = <<-EOF
-{
-  "message": "Ok"
-}
-EOF
+      message_body = jsondecode({
+        message = "Ok",
+        timestamp = timestamp()
+      })
       status_code  = 200
     }
   }
