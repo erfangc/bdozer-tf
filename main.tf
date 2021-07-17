@@ -14,7 +14,7 @@ locals {
 module "stock-valuation-service" {
   source        = "./ecs-service"
   service_name  = "stock-valuation-service"
-  desired_count = 0
+  desired_count = 1
 
   service_common_cfgs = local.service_common_cfgs
 }
