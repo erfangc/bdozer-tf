@@ -1,5 +1,5 @@
 locals {
-  service_common_cfgs = {
+  service_common_configs = {
     vpc_id = module.vpc.vpc_id
     vpc_cidr_block = module.vpc.vpc_cidr_block
     private_subnets = module.vpc.private_subnets
@@ -16,5 +16,5 @@ module "stock-valuation-service" {
   service_name = "stock-valuation-service"
   desired_count = 0
 
-  service_common_configs = local.service_common_cfgs
+  service_common_configs = local.service_common_configs
 }
