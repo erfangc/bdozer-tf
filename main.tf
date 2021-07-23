@@ -16,5 +16,5 @@ module "stock-valuation-service" {
   service_name = "stock-valuation-service"
   desired_count = 1
 
-  service_common_cfgs = local.service_common_cfgs
+  service_common_configs = local.service_common_cfgs
 }
