@@ -6,7 +6,7 @@ resource "aws_elasticsearch_domain" "esd" {
   elasticsearch_version = "7.10"
 
   cluster_config {
-    instance_type = "r6g.large.elasticsearch"
+    instance_type = "t3.small.elasticsearch"
   }
 
   vpc_options {
@@ -15,7 +15,8 @@ resource "aws_elasticsearch_domain" "esd" {
   }
 
   ebs_options {
-    ebs_enabled = false
+    ebs_enabled = true
+    volume_size = 10
   }
 
   access_policies = jsonencode({
