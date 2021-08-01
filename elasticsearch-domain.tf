@@ -7,12 +7,16 @@ resource "aws_elasticsearch_domain" "esd" {
 
   cluster_config {
     instance_type = "t3.small.elasticsearch"
-    zone_awareness_enabled = true
+    instance_count = 1
   }
 
   vpc_options {
-    subnet_ids = module.vpc.private_subnets
-    security_group_ids = [aws_security_group.elasticsearch-domain-sg.id]
+    subnet_ids = [
+      module.vpc.private_subnets[0]
+    ]
+    security_group_ids = [
+      aws_security_group.elasticsearch-domain-sg.id
+    ]
   }
 
   ebs_options {
