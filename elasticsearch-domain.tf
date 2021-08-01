@@ -12,7 +12,7 @@ resource "aws_elasticsearch_domain" "esd" {
 
   cluster_config {
     instance_type = "t3.small.elasticsearch"
-    instance_count = 1
+    instance_count = 0
   }
 
   vpc_options {
