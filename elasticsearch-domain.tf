@@ -1,5 +1,5 @@
 locals {
-  domain: "elasticsearch-domain"
+  domain = "elasticsearch-domain"
 }
 resource "aws_elasticsearch_domain" "esd" {
   domain_name = local.domain
