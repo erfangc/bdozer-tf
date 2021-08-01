@@ -1,6 +1,11 @@
 locals {
   domain = "elasticsearch-domain"
 }
+
+resource "aws_iam_service_linked_role" "es" {
+  aws_service_name = "es.amazonaws.com"
+}
+
 resource "aws_elasticsearch_domain" "esd" {
   domain_name = local.domain
   elasticsearch_version = "7.10"
