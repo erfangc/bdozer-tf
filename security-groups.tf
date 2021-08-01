@@ -1,6 +1,6 @@
 resource "aws_security_group" "elasticsearch-domain-sg" {
-  name = "Elasticsearch domain security group"
-  description = ""
+  name = "elasticsearch"
+  description = "Elasticsearch domain security group"
   vpc_id = module.vpc.vpc_id
 }
 
