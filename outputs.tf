@@ -1,3 +1,3 @@
-output "es-domain" {
-  value = aws_elasticsearch_domain.esd.endpoint
-}
+//output "es-domain" {
+//  value = aws_elasticsearch_domain.esd.endpoint
+//}
