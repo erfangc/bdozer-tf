@@ -6,12 +6,16 @@ resource "aws_elasticsearch_domain" "esd" {
   elasticsearch_version = "7.10"
 
   cluster_config {
-    instance_type = "t2.small.elasticsearch"
+    instance_type = "r6g.large.elasticsearch"
   }
 
   vpc_options {
     subnet_ids = module.vpc.private_subnets
     security_group_ids = [aws_security_group.elasticsearch-domain-sg.id]
+  }
+
+  ebs_options {
+    ebs_enabled = false
   }
 
   access_policies = jsonencode({
