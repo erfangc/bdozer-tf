@@ -13,6 +13,10 @@ resource "aws_elasticsearch_domain" "esd" {
   cluster_config {
     instance_type = "t3.small.elasticsearch"
     instance_count = 3
+    zone_awareness_enabled = true
+    zone_awareness_config {
+      availability_zone_count = 3
+    }
   }
 
   vpc_options {
