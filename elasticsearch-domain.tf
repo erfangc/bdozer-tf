@@ -16,9 +16,7 @@ resource "aws_elasticsearch_domain" "esd" {
   }
 
   vpc_options {
-    subnet_ids = [
-      module.vpc.private_subnets
-    ]
+    subnet_ids = module.vpc.private_subnets
     security_group_ids = [
       aws_security_group.elasticsearch-domain-sg.id
     ]
