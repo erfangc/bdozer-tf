@@ -10,7 +10,7 @@ resource "aws_transfer_server" "transfer-server" {
   protocols              = ["SFTP"]
   endpoint_type          = "VPC"
   endpoint_details {
-    subnet_ids = [module.vpc.private_subnets]
+    subnet_ids = module.vpc.private_subnets
     vpc_id     = module.vpc.vpc_id
   }
   tags                   = {
