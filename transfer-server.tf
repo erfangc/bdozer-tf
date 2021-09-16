@@ -18,6 +18,12 @@ resource "aws_transfer_server" "transfer-server" {
   }
 }
 
+resource "aws_transfer_ssh_key" "ssh-key" {
+  body      = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCsUTG5XOS9WgBD+izYPhhNSdqs7MNh5wfG7areUd69fAddvYm1bNpWgB8EWwVgOnsPnChm6d+/hWkSdGe/EXfHUzLBtzJ58bq3iN/UMnAZ1NLrRbo1F629uTV0VvOx9Fw8tCe0HVu25XD1n9C4hU6HoB038JPzSolXnHmW0RBM35KIpmQwD+vjMLR4v/rn4eitfXEdN3CyxVZHWPPEh3QNn5TgwvrPWFan832lsFTAQ4Bddl32XOLSwFXgNJsPexKKjG711EdDiYJttJ0Umw8qYve/+cNOYWfN5dKXo5ij0fuGp4ElHOrrMHSY8+35j4Don5CqMIB/rhJYLB3Z2Odi7dPDsBNAigqEAhPj6LJQLPboxTTILNLyb+18+KwRI1HndPB77uA1IurbChP557kxU1htjTaVQIRdX1Cl1NWuCwzRU8vlUJNTMQBchy1pCkyxHWduhyjSHx7th3WGpU67mzTtQwtDmdhYmvPSd9EazAd0GKEqDcU5cgTZMNM5lp6CSTqgsaCiezQVCbhLSr0ZNowGAdjEZdOVqhAmz01PDUt8dqscUcvRXPr7qRQNwJ01isH64hTZYYx7j1Z7EPcAzb9swcuyi2Gr8IWPYBTiuyS4eKQR0LDJQ6TAO2xBZY0u9idvK95wnrC1PdSYVHGW2KK0O/btyYxiqTp/omMy1w== ssm-user@ip-10-10-10-49.ec2.internal"
+  server_id = aws_transfer_server.transfer-server.id
+  user_name = aws_transfer_user.transfer-user.user_name
+}
+
 resource "aws_iam_role" "transfer-server-role" {
   name = "tf-test-transfer-user-iam-role"
 
