@@ -21,7 +21,7 @@ resource "aws_lb_target_group" "lb-tg" {
   health_check {
     healthy_threshold = 2
     interval = 10
-    timeout = 10
+    timeout = 5
     unhealthy_threshold = 2
   }
 }
