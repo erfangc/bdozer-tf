@@ -10,7 +10,7 @@ resource "aws_ecr_repository" "ecr_repo" {
 }
 
 #
-# Load balancer target group that will front all instances of this sesrvice
+# Load balancer target group that will front all instances of this service
 #
 resource "aws_lb_target_group" "lb-tg" {
   name        = var.service_name
@@ -20,6 +20,9 @@ resource "aws_lb_target_group" "lb-tg" {
   vpc_id      = var.service_common_configs.vpc_id
   health_check {
     healthy_threshold = 2
+    interval = 10
+    timeout = 10
+    unhealthy_threshold = 2
   }
 }
 
