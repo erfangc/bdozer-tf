@@ -18,6 +18,9 @@ resource "aws_lb_target_group" "lb-tg" {
   protocol    = "HTTP"
   target_type = "ip"
   vpc_id      = var.service_common_configs.vpc_id
+  health_check {
+    healthy_threshold = 1
+  }
 }
 
 resource "aws_lb_listener_rule" "static" {
