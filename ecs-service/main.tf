@@ -19,7 +19,7 @@ resource "aws_lb_target_group" "lb-tg" {
   target_type = "ip"
   vpc_id      = var.service_common_configs.vpc_id
   health_check {
-    healthy_threshold = 1
+    healthy_threshold = 2
   }
 }
 
