@@ -14,7 +14,11 @@ locals {
 module "stock-valuation-service" {
   source = "./ecs-service"
   service_name = "stock-valuation-service"
-  desired_count = 0
+  desired_count = 1
 
   service_common_configs = local.service_common_configs
+}
+
+resource "aws_secretsmanager_secret" "some-secret" {
+  name = "some-secret"
 }
