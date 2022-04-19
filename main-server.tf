@@ -3,8 +3,7 @@ resource "aws_instance" "main-server" {
   key_name        = "master-key-${var.env}"
   instance_type   = "c6g.large"
 
-  ebs_block_device {
-    device_name = "data"
+  root_block_device {
     volume_size = 50
   }
   
