@@ -59,8 +59,8 @@ resource "aws_security_group_rule" "main-server-appserver-ingress" {
 
 resource "aws_security_group_rule" "main-server-https-egress" {
   type              = "ingress"
-  from_port         = 443
-  to_port           = 443
+  from_port         = 0
+  to_port           = 65535
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
   cidr_blocks = ["0.0.0.0/0"]
