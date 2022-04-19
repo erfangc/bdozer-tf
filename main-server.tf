@@ -37,7 +37,7 @@ resource "aws_security_group_rule" "main-server-elasticsearch-ingress" {
   security_group_id = aws_security_group.main-server.id
 }
 
-resource "aws_security_group_rule" "main-server-elasticsearch-ingress" {
+resource "aws_security_group_rule" "main-server-kibana-ingress" {
   type              = "ingress"
   from_port         = 5601
   to_port           = 5601
