@@ -1,10 +1,10 @@
 resource "aws_instance" "main-server" {
-  ami             = "ami-0482730ee38e3f893"
+  ami             = "ami-0e9d3c53b79c2cc6f"
   key_name        = "master-key-${var.env}"
-  instance_type   = "c6g.large"
+  instance_type   = "c5.large"
 
   root_block_device {
-    volume_size = 50
+    volume_size = 35
   }
   
   vpc_security_group_ids = [aws_security_group.main-server.id]
