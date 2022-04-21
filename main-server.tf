@@ -66,7 +66,7 @@ resource "aws_security_group_rule" "main-server-https-ingress" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group_rule" "main-server-https-ingress" {
+resource "aws_security_group_rule" "main-server-http-ingress" {
   type              = "ingress"
   from_port         = 80
   to_port           = 80
