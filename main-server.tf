@@ -30,33 +30,6 @@ resource "aws_security_group_rule" "main-server-ssh-ingress" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group_rule" "main-server-elasticsearch-ingress" {
-  type              = "ingress"
-  from_port         = 9200
-  to_port           = 9200
-  protocol          = "tcp"
-  security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
-}
-
-resource "aws_security_group_rule" "main-server-kibana-ingress" {
-  type              = "ingress"
-  from_port         = 5601
-  to_port           = 5601
-  protocol          = "tcp"
-  security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
-}
-
-resource "aws_security_group_rule" "main-server-appserver-ingress" {
-  type              = "ingress"
-  from_port         = 8080
-  to_port           = 8080
-  protocol          = "tcp"
-  security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
-}
-
 resource "aws_security_group_rule" "main-server-https-ingress" {
   type              = "ingress"
   from_port         = 443
@@ -77,8 +50,8 @@ resource "aws_security_group_rule" "main-server-http-ingress" {
 
 resource "aws_security_group_rule" "main-server-https-egress" {
   type              = "egress"
-  from_port         = 0
-  to_port           = 65535
+  from_port         = 443
+  to_port           = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
   cidr_blocks = ["0.0.0.0/0"]
