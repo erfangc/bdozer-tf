@@ -5,7 +5,7 @@ resource "aws_instance" "main-server" {
 
   root_block_device {
     volume_size = 35
-    iops = 200
+    iops = 4000
   }
   
   vpc_security_group_ids = [aws_security_group.main-server.id]
