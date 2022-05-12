@@ -22,6 +22,7 @@ resource "aws_iam_instance_profile" "main-server" {
   role = aws_iam_role.main-server-role.name
 }
 
+
 resource "aws_security_group" "main-server" {
   name        = "main-server"
   description = "Main server security group"
