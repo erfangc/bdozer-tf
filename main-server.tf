@@ -19,7 +19,7 @@ resource "aws_instance" "main-server" {
 
 resource "aws_iam_instance_profile" "main-server" {
   name = "main-server-instance-profile"
-  role = aws_iam_role.main-server-role.name
+  role = aws_iam_role.main-server-role.arn
 }
 
 
