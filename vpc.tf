@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.2.0"
+  version = "3.14.0"
 
   name               = var.env
   cidr               = "10.10.10.0/24"
