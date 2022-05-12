@@ -1,16 +1,16 @@
 resource "aws_instance" "main-server" {
-  ami             = "ami-0e9d3c53b79c2cc6f"
-  key_name        = "master-key-${var.env}"
-  instance_type   = "c5.large"
+  ami           = "ami-0e9d3c53b79c2cc6f"
+  key_name      = "master-key-${var.env}"
+  instance_type = "c5.large"
 
   root_block_device {
     volume_size = 35
-    iops = 4000
+    iops        = 4000
   }
-  
+
   vpc_security_group_ids = [aws_security_group.main-server.id]
-  subnet_id = module.vpc.public_subnets[0]
-  iam_instance_profile = aws_iam_instance_profile.main-server.name
+  subnet_id              = module.vpc.public_subnets[0]
+  iam_instance_profile   = aws_iam_instance_profile.main-server.name
 
   tags = {
     Name = "main-server"
@@ -34,7 +34,7 @@ resource "aws_security_group_rule" "main-server-ssh-ingress" {
   to_port           = 22
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "main-server-https-ingress" {
@@ -43,7 +43,7 @@ resource "aws_security_group_rule" "main-server-https-ingress" {
   to_port           = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "main-server-http-ingress" {
@@ -52,7 +52,7 @@ resource "aws_security_group_rule" "main-server-http-ingress" {
   to_port           = 80
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "main-server-https-egress" {
@@ -61,7 +61,7 @@ resource "aws_security_group_rule" "main-server-https-egress" {
   to_port           = 443
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_security_group_rule" "main-server-postgres-egress" {
@@ -70,17 +70,17 @@ resource "aws_security_group_rule" "main-server-postgres-egress" {
   to_port           = 5432
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
-  cidr_blocks = ["0.0.0.0/0"]
+  cidr_blocks       = ["0.0.0.0/0"]
 }
 
 resource "aws_iam_role" "main-server-role" {
-  name = "main_server_role"
-  path = "/"
+  name               = "main_server_role"
+  path               = "/"
   assume_role_policy = jsonencode({
-    Version = "2012-10-17",
+    Version   = "2012-10-17",
     Statement = [
       {
-        Effect = "Allow",
+        Effect    = "Allow",
         Principal = {
           Service = "ec2.amazonaws.com"
         },
@@ -88,20 +88,27 @@ resource "aws_iam_role" "main-server-role" {
       }
     ]
   })
-  inline_policy {
-    name = "main_server_policy"
-    policy = jsonencode({
-      Version = "2012-10-17",
-      Statement = [
-        {
-          Effect = "Allow",
-          Action = [
-            "s3:*",
-            "s3-object-lambda:*"
-          ],
-          Resource = "*"
-        }
-      ]
-    })
-  }
+}
+
+resource "aws_iam_policy_attachment" "main-server-policy-attachment" {
+  name       = "main-server-policy-attachment"
+  policy_arn = aws_iam_policy.main-server-policy.arn
+  roles      = [aws_iam_role.main-server-role.arn]
+}
+
+resource "aws_iam_policy" "main-server-policy" {
+  name   = "main-server-policy"
+  policy = jsonencode({
+    Version   = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Action = [
+          "s3:*",
+          "s3-object-lambda:*"
+        ],
+        Resource = "*"
+      }
+    ]
+  })
 }
