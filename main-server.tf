@@ -74,7 +74,8 @@ resource "aws_security_group_rule" "main-server-postgres-egress" {
 }
 
 resource "aws_iam_role" "main-server-role" {
-  name = "main-server-role"
+  name = "main_server_role"
+  path = "/"
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -88,7 +89,7 @@ resource "aws_iam_role" "main-server-role" {
     ]
   })
   inline_policy {
-    name = "main-server"
+    name = "main_server_policy"
     policy = jsonencode({
       Version = "2012-10-17",
       Statement = [
