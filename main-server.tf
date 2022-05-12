@@ -10,10 +10,16 @@ resource "aws_instance" "main-server" {
   
   vpc_security_group_ids = [aws_security_group.main-server.id]
   subnet_id = module.vpc.public_subnets[0]
+  iam_instance_profile = aws_iam_instance_profile.main-server
 
   tags = {
     Name = "main-server"
   }
+}
+
+resource "aws_iam_instance_profile" "main-server" {
+  name = "main-server-instance-profile"
+  role = aws_iam_role.main-server-role.arn
 }
 
 resource "aws_security_group" "main-server" {
@@ -65,4 +71,35 @@ resource "aws_security_group_rule" "main-server-postgres-egress" {
   protocol          = "tcp"
   security_group_id = aws_security_group.main-server.id
   cidr_blocks = ["0.0.0.0/0"]
+}
+
+resource "aws_iam_role" "main-server-role" {
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Effect = "Allow",
+        Principal = {
+          Service = "ec2.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+  inline_policy {
+    name = "main-server"
+    policy = jsonencode({
+      Version = "2012-10-17",
+      Statement = [
+        {
+          Effect = "Allow",
+          Action = [
+            "s3:*",
+            "s3-object-lambda:*"
+          ],
+          Resource = "*"
+        }
+      ]
+    })
+  }
 }
