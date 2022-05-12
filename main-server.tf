@@ -94,7 +94,7 @@ resource "aws_iam_role" "main-server-role" {
 resource "aws_iam_policy_attachment" "main-server-policy-attachment" {
   name       = "main-server-policy-attachment"
   policy_arn = aws_iam_policy.main-server-policy.arn
-  roles      = [aws_iam_role.main-server-role.arn]
+  roles      = [aws_iam_role.main-server-role.id]
 }
 
 resource "aws_iam_policy" "main-server-policy" {
