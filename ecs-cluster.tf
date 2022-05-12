@@ -3,8 +3,8 @@ resource "aws_cloudwatch_log_group" "ecs-cluster" {
 }
 
 resource "aws_ecs_cluster" "ecs-cluster" {
-  name = "ecs-cluster"
-
+  name               = "ecs-cluster"
+  capacity_providers = ["FARGATE"]
   configuration {
     execute_command_configuration {
       kms_key_id = aws_kms_key.master-kms-key.arn
@@ -16,9 +16,4 @@ resource "aws_ecs_cluster" "ecs-cluster" {
       }
     }
   }
-}
-
-resource "aws_ecs_cluster_capacity_providers" "example" {
-  cluster_name = aws_ecs_cluster.ecs-cluster.name
-  capacity_providers = ["FARGATE"]
 }
