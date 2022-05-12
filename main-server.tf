@@ -10,7 +10,7 @@ resource "aws_instance" "main-server" {
   
   vpc_security_group_ids = [aws_security_group.main-server.id]
   subnet_id = module.vpc.public_subnets[0]
-  iam_instance_profile = aws_iam_instance_profile.main-server
+  iam_instance_profile = aws_iam_instance_profile.main-server.arn
 
   tags = {
     Name = "main-server"
