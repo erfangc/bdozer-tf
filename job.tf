@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "ubuntu" {
       name             = "default"
       image            = "ubuntu"
       essential        = true
-      cmd              = ["echo", "-e", "Hello World"]
+      command          = ["echo", "-e", "Hello World"]
       logConfiguration = {
         logDriver = "awslogs"
         options   = {
