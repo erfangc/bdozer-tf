@@ -20,12 +20,6 @@ resource "aws_ecs_task_definition" "ubuntu" {
           awslogs-stream-prefix = "ubuntu"
         }
       }
-      #      portMappings = [
-      #        {
-      #          containerPort = 80
-      #          hostPort      = 80
-      #        }
-      #      ]
     },
   ])
 }
