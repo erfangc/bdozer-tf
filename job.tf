@@ -9,8 +9,16 @@ resource "aws_ecs_task_definition" "ubuntu" {
       name         = "default"
       image        = "ubuntu"
       essential    = true
-      cmd : ["echo", "-e", "Hello World"]
-#      portMappings = [
+      cmd = ["echo", "-e", "Hello World"]
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group = "ubuntu-container",
+          awslogs-region = "us-east-1",
+          awslogs-create-group = "true",
+        }
+      }
+      #      portMappings = [
 #        {
 #          containerPort = 80
 #          hostPort      = 80
