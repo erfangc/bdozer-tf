@@ -16,7 +16,7 @@ resource "aws_ecs_task_definition" "ubuntu" {
         options   = {
           awslogs-group         = "ubuntu"
           awslogs-region        = "us-east-1"
-          awslogs-create-group  = true
+          awslogs-create-group  = "true"
           awslogs-stream-prefix = "ubuntu"
         }
       }
