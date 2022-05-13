@@ -14,7 +14,7 @@ resource "aws_iam_role" "ecsTaskExecutionRole" {
   ]
 }
 EOF
-  managed_policy_arns = ['arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy']
+  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
 }
 
 resource "aws_ecs_task_definition" "ubuntu" {
