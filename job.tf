@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "sync-zacks-data" {
       name      = "default"
       image     = aws_ecr_repository.bdozer-api-batch-jobs.repository_url
       essential = true
-      command   = ["echo", "-e", "Hello World"]
+      command   = ["java", "-cp", "bdozer-api-batch-jobs-0.0.1-SNAPSHOT.jar", "co.bdozer.jobs.SyncZacksDataKt"]
       secrets   = [
         { name : "ELASTICSEARCH_CREDENTIAL", valueFrom : aws_secretsmanager_secret.elasticsearch_credential.arn },
         { name : "ELASTICSEARCH_ENDPOINT", valueFrom : aws_secretsmanager_secret.elasticsearch_endpoint.arn },
