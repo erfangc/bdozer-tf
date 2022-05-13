@@ -66,15 +66,15 @@ resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
   })
 }
 
-resource "aws_cloudwatch_event_rule" "every_5_minutes" {
-  name                = "every_5_minutes"
-  schedule_expression = "rate(5 minutes)"
+resource "aws_cloudwatch_event_rule" "ubuntu-rule" {
+  name                = "ubuntu-rule"
+  schedule_expression = "rate(12 hours)"
 }
 
 resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
   target_id = "run-scheduled-task-every-hour"
   arn       = aws_ecs_cluster.ecs-cluster.arn
-  rule      = aws_cloudwatch_event_rule.every_5_minutes.name
+  rule      = aws_cloudwatch_event_rule.ubuntu-rule.name
   role_arn  = aws_iam_role.ecs_events.arn
 
   ecs_target {
