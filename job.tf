@@ -1,21 +1,3 @@
-resource "aws_iam_role" "ecsTaskExecutionRole" {
-  name = "ecsTaskExecutionRole"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Sid = "123",
-        Effect = "Allow",
-        Principal = {
-          Service = "ecs-tasks.amazonaws.com"
-        },
-        Action = "sts:AssumeRole"
-      }
-    ]
-  })
-  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
-}
-
 resource "aws_ecs_task_definition" "ubuntu" {
   family                   = "ubuntu"
   requires_compatibilities = ["FARGATE"]
@@ -34,7 +16,6 @@ resource "aws_ecs_task_definition" "ubuntu" {
         options   = {
           awslogs-group         = "ubuntu-container",
           awslogs-region        = "us-east-1",
-          awslogs-create-group  = "true",
           awslogs-stream-prefix = "ecs"
         }
       }
