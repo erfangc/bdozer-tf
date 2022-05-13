@@ -86,7 +86,7 @@ resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
     task_definition_arn = aws_ecs_task_definition.ubuntu.arn
     launch_type         = "FARGATE"
     network_configuration {
-      subnets         = module.vpc.private_subnets
+      subnets         = module.vpc.public_subnets
       security_groups = [module.vpc.default_security_group_id]
     }
     platform_version = "1.4"
