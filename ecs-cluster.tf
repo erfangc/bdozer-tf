@@ -27,7 +27,8 @@ resource "aws_iam_role" "ecsTaskExecutionRole" {
             "ecr:BatchGetImage",
             "logs:CreateLogStream",
             "logs:CreateLogGroup",
-            "logs:PutLogEvents"
+            "logs:PutLogEvents",
+            "secretsmanager:GetSecretValue",
           ],
           "Resource": "*"
         }
