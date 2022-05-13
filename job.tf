@@ -34,7 +34,7 @@ resource "aws_iam_role" "ecs_events" {
     Version   = "2012-10-17",
     Statement = [
       {
-        Sid       = "",
+        Sid       = "123",
         Effect    = "Allow",
         Principal = {
           Service = "events.amazonaws.com"
@@ -84,6 +84,7 @@ resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
     network_configuration {
       subnets         = module.vpc.public_subnets
       security_groups = [module.vpc.default_security_group_id]
+      assign_public_ip = true
     }
   }
 }
