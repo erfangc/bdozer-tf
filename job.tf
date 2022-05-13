@@ -85,6 +85,5 @@ resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
       subnets         = module.vpc.public_subnets
       security_groups = [module.vpc.default_security_group_id]
     }
-    platform_version = "1.4"
   }
 }
