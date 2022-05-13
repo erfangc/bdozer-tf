@@ -14,6 +14,7 @@ resource "aws_ecs_task_definition" "ubuntu" {
       logConfiguration = {
         logDriver = "awslogs",
         options   = {
+          awslogs-group         = "ubuntu",
           awslogs-region        = "us-east-1",
           awslogs-stream-prefix = "ubuntu"
         }
