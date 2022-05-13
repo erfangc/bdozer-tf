@@ -81,7 +81,7 @@ resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
 
 resource "aws_cloudwatch_event_rule" "sync-zacks-data-rule" {
   name                = "sync-zacks-data-rule"
-  schedule_expression = "rate(12 hours)"
+  schedule_expression = "rate(24 hours)"
 }
 
 resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
