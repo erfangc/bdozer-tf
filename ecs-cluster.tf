@@ -13,7 +13,27 @@ resource "aws_iam_role" "ecsTaskExecutionRole" {
       }
     ]
   })
-  managed_policy_arns = ["arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"]
+  inline_policy {
+    name = "ECSTaskExecutionRolePolicy"
+    policy = jsonencode({
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "ecr:GetAuthorizationToken",
+            "ecr:BatchCheckLayerAvailability",
+            "ecr:GetDownloadUrlForLayer",
+            "ecr:BatchGetImage",
+            "logs:CreateLogStream",
+            "logs:CreateLogGroup",
+            "logs:PutLogEvents"
+          ],
+          "Resource": "*"
+        }
+      ]
+    })
+  }
 }
 
 resource "aws_cloudwatch_log_group" "ecs-cluster" {

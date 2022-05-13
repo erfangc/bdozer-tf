@@ -12,10 +12,11 @@ resource "aws_ecs_task_definition" "ubuntu" {
       essential        = true
       cmd              = ["echo", "-e", "Hello World"]
       logConfiguration = {
-        logDriver = "awslogs",
+        logDriver = "awslogs"
         options   = {
-          awslogs-group         = "ubuntu",
-          awslogs-region        = "us-east-1",
+          awslogs-group         = "ubuntu"
+          awslogs-region        = "us-east-1"
+          awslogs-create-group  = true
           awslogs-stream-prefix = "ubuntu"
         }
       }
