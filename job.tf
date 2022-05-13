@@ -71,7 +71,7 @@ DOC
 }
 
 resource "aws_cloudwatch_event_rule" "every_5_minutes" {
-  name        = "every_5_minutes"
+  name                = "every_5_minutes"
   schedule_expression = "rate(5 minutes)"
 }
 
@@ -84,5 +84,11 @@ resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
   ecs_target {
     task_count          = 1
     task_definition_arn = aws_ecs_task_definition.ubuntu.arn
+    launch_type         = "FARGATE"
+    network_configuration {
+      subnets         = module.vpc.private_subnets
+      security_groups = [module.vpc.default_security_group_id]
+    }
+    platform_version = "1.4"
   }
 }
