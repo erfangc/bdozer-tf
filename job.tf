@@ -10,10 +10,6 @@ resource "aws_ecs_task_definition" "ubuntu" {
       memory       = 512
       essential    = true
       cmd : ["echo", "-e", "Hello World"]
-      portMappings = [
-        {
-        }
-      ]
     },
   ])
 }
