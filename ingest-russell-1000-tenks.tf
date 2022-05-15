@@ -1,9 +1,5 @@
-resource "aws_ecr_repository" "bdozer-api-batch-jobs" {
-  name = "bdozer-api-batch-jobs"
-}
-
-resource "aws_ecs_task_definition" "sync-zacks-data" {
-  family                   = "sync-zacks-data"
+resource "aws_ecs_task_definition" "ingest-russell-1000" {
+  family                   = "ingest-russell-1000"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 256
@@ -14,7 +10,7 @@ resource "aws_ecs_task_definition" "sync-zacks-data" {
       name      = "default"
       image     = aws_ecr_repository.bdozer-api-batch-jobs.repository_url
       essential = true
-      command   = ["java", "-cp", "bdozer-api-batch-jobs-0.0.1-SNAPSHOT.jar", "co.bdozer.jobs.SyncZacksDataKt"]
+      command   = ["java", "-cp", "bdozer-api-batch-jobs-0.0.1-SNAPSHOT.jar", "co.bdozer.jobs.IngestRussell100TenKsKt"]
       secrets   = [
         { name : "ELASTICSEARCH_CREDENTIAL", valueFrom : aws_secretsmanager_secret.elasticsearch_credential.arn },
         { name : "ELASTICSEARCH_ENDPOINT", valueFrom : aws_secretsmanager_secret.elasticsearch_endpoint.arn },
@@ -27,10 +23,10 @@ resource "aws_ecs_task_definition" "sync-zacks-data" {
       logConfiguration = {
         logDriver = "awslogs"
         options   = {
-          awslogs-group         = "sync-zacks-data"
+          awslogs-group         = "ingest-russell-1000"
           awslogs-region        = "us-east-1"
           awslogs-create-group  = "true"
-          awslogs-stream-prefix = "sync-zacks-data"
+          awslogs-stream-prefix = "ingest-russell-1000"
         }
       }
     },
@@ -79,20 +75,20 @@ resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
   })
 }
 
-resource "aws_cloudwatch_event_rule" "sync-zacks-data-rule" {
-  name                = "sync-zacks-data-rule"
+resource "aws_cloudwatch_event_rule" "ingest-russell-1000-rule" {
+  name                = "ingest-russell-1000-rule"
   schedule_expression = "rate(24 hours)"
 }
 
 resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
   target_id = "run-scheduled-task-every-hour"
   arn       = aws_ecs_cluster.ecs-cluster.arn
-  rule      = aws_cloudwatch_event_rule.sync-zacks-data-rule.name
+  rule      = aws_cloudwatch_event_rule.ingest-russell-1000-rule.name
   role_arn  = aws_iam_role.ecs_events.arn
 
   ecs_target {
     task_count          = 1
-    task_definition_arn = aws_ecs_task_definition.sync-zacks-data.arn
+    task_definition_arn = aws_ecs_task_definition.ingest-russell-1000.arn
     launch_type         = "FARGATE"
     network_configuration {
       subnets          = module.vpc.public_subnets
