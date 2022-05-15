@@ -36,8 +36,8 @@ resource "aws_ecs_task_definition" "ingest-russell-1000" {
 //
 // schedule the run
 //
-resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events"
+resource "aws_iam_role" "ingest-russell-1000-rule" {
+  name = "ingest-russell-1000-rule"
 
   assume_role_policy = jsonencode({
     Version   = "2012-10-17",
@@ -54,9 +54,9 @@ resource "aws_iam_role" "ecs_events" {
   })
 }
 
-resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
-  name = "ecs_events_run_task_with_any_role"
-  role = aws_iam_role.ecs_events.id
+resource "aws_iam_role_policy" "ingest-russell-1000-rule" {
+  name = "ingest-russell-1000-rule"
+  role = aws_iam_role.ingest-russell-1000-rule.id
 
   policy = jsonencode({
     Version   = "2012-10-17",
@@ -84,7 +84,7 @@ resource "aws_cloudwatch_event_target" "ingest-russell-1000-rule" {
   target_id = "ingest-russell-1000-rule"
   arn       = aws_ecs_cluster.ecs-cluster.arn
   rule      = aws_cloudwatch_event_rule.ingest-russell-1000-rule.name
-  role_arn  = aws_iam_role.ecs_events.arn
+  role_arn  = aws_iam_role.ingest-russell-1000-rule.arn
 
   ecs_target {
     task_count          = 1

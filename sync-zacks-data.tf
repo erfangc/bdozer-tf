@@ -36,8 +36,8 @@ resource "aws_ecs_task_definition" "sync-zacks-data" {
 //
 // schedule the run
 //
-resource "aws_iam_role" "ecs_events" {
-  name = "ecs_events"
+resource "aws_iam_role" "sync-zacks-data-rule" {
+  name = "sync-zacks-data-rule"
 
   assume_role_policy = jsonencode({
     Version   = "2012-10-17",
@@ -54,9 +54,9 @@ resource "aws_iam_role" "ecs_events" {
   })
 }
 
-resource "aws_iam_role_policy" "ecs_events_run_task_with_any_role" {
-  name = "ecs_events_run_task_with_any_role"
-  role = aws_iam_role.ecs_events.id
+resource "aws_iam_role_policy" "sync-zacks-data-rule" {
+  name = "sync-zacks-data-rule"
+  role = aws_iam_role.sync-zacks-data-rule.id
 
   policy = jsonencode({
     Version   = "2012-10-17",
@@ -84,7 +84,7 @@ resource "aws_cloudwatch_event_target" "sync-zacks-data-rule" {
   target_id = "sync-zacks-data-rule"
   arn       = aws_ecs_cluster.ecs-cluster.arn
   rule      = aws_cloudwatch_event_rule.sync-zacks-data-rule.name
-  role_arn  = aws_iam_role.ecs_events.arn
+  role_arn  = aws_iam_role.sync-zacks-data-rule.arn
 
   ecs_target {
     task_count          = 1
