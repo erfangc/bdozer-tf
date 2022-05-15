@@ -80,8 +80,8 @@ resource "aws_cloudwatch_event_rule" "sync-zacks-data-rule" {
   schedule_expression = "rate(24 hours)"
 }
 
-resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
-  target_id = "run-scheduled-task-every-hour"
+resource "aws_cloudwatch_event_target" "sync-zacks-data-rule" {
+  target_id = "sync-zacks-data-rule"
   arn       = aws_ecs_cluster.ecs-cluster.arn
   rule      = aws_cloudwatch_event_rule.sync-zacks-data-rule.name
   role_arn  = aws_iam_role.ecs_events.arn

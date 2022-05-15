@@ -80,8 +80,8 @@ resource "aws_cloudwatch_event_rule" "ingest-russell-1000-rule" {
   schedule_expression = "rate(24 hours)"
 }
 
-resource "aws_cloudwatch_event_target" "ecs_scheduled_task" {
-  target_id = "run-scheduled-task-every-hour"
+resource "aws_cloudwatch_event_target" "ingest-russell-1000-rule" {
+  target_id = "ingest-russell-1000-rule"
   arn       = aws_ecs_cluster.ecs-cluster.arn
   rule      = aws_cloudwatch_event_rule.ingest-russell-1000-rule.name
   role_arn  = aws_iam_role.ecs_events.arn
