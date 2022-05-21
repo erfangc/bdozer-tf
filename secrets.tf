@@ -26,3 +26,11 @@ resource "aws_secretsmanager_secret" "quandl_api_key" {
   name        = "quandl_api_key"
   description = "quandl_api_key"
 }
+resource "aws_secretsmanager_secret" "client_id" {
+  name        = "client_id"
+  description = "client_id"
+}
+resource "aws_secretsmanager_secret" "client_secret" {
+  name        = "client_secret"
+  description = "client_secret"
+}

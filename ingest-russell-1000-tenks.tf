@@ -1,5 +1,5 @@
-resource "aws_ecs_task_definition" "ingest-russell-1000" {
-  family                   = "ingest-russell-1000"
+resource "aws_ecs_task_definition" "rebuild-zack-model" {
+  family                   = "rebuild-zack-model"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 256
@@ -10,7 +10,7 @@ resource "aws_ecs_task_definition" "ingest-russell-1000" {
       name      = "default"
       image     = aws_ecr_repository.bdozer-api-batch-jobs.repository_url
       essential = true
-      command   = ["java", "-cp", "bdozer-api-batch-jobs-0.0.1-SNAPSHOT.jar", "co.bdozer.jobs.IngestRussell100TenKsKt"]
+      command   = ["java", "-cp", "bdozer-api-batch-jobs-0.0.1-SNAPSHOT.jar", "co.bdozer.jobs.RebuildZackModelsKt"]
       secrets   = [
         { name : "ELASTICSEARCH_CREDENTIAL", valueFrom : aws_secretsmanager_secret.elasticsearch_credential.arn },
         { name : "ELASTICSEARCH_ENDPOINT", valueFrom : aws_secretsmanager_secret.elasticsearch_endpoint.arn },
@@ -19,14 +19,19 @@ resource "aws_ecs_task_definition" "ingest-russell-1000" {
         { name : "JDBC_USERNAME", valueFrom : aws_secretsmanager_secret.jdbc_username.arn },
         { name : "POLYGON_API_KEY", valueFrom : aws_secretsmanager_secret.polygon_api_key.arn },
         { name : "QUANDL_API_KEY", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
+        { name : "CLIENT_ID", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
+        { name : "CLIENT_SECRET", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
+      ],
+      environment = [
+        { name : "API_ENDPOINT", value: "https://api.bdozer.co" },
       ],
       logConfiguration = {
         logDriver = "awslogs"
         options   = {
-          awslogs-group         = "ingest-russell-1000"
+          awslogs-group         = "rebuild-zack-model"
           awslogs-region        = "us-east-1"
           awslogs-create-group  = "true"
-          awslogs-stream-prefix = "ingest-russell-1000"
+          awslogs-stream-prefix = "rebuild-zack-model"
         }
       }
     },
@@ -36,8 +41,8 @@ resource "aws_ecs_task_definition" "ingest-russell-1000" {
 //
 // schedule the run
 //
-resource "aws_iam_role" "ingest-russell-1000-rule" {
-  name = "ingest-russell-1000-rule"
+resource "aws_iam_role" "rebuild-zack-model-rule" {
+  name = "rebuild-zack-model-rule"
 
   assume_role_policy = jsonencode({
     Version   = "2012-10-17",
@@ -54,9 +59,9 @@ resource "aws_iam_role" "ingest-russell-1000-rule" {
   })
 }
 
-resource "aws_iam_role_policy" "ingest-russell-1000-rule" {
-  name = "ingest-russell-1000-rule"
-  role = aws_iam_role.ingest-russell-1000-rule.id
+resource "aws_iam_role_policy" "rebuild-zack-model-rule" {
+  name = "rebuild-zack-model-rule"
+  role = aws_iam_role.rebuild-zack-model-rule.id
 
   policy = jsonencode({
     Version   = "2012-10-17",
@@ -75,20 +80,20 @@ resource "aws_iam_role_policy" "ingest-russell-1000-rule" {
   })
 }
 
-resource "aws_cloudwatch_event_rule" "ingest-russell-1000-rule" {
-  name                = "ingest-russell-1000-rule"
+resource "aws_cloudwatch_event_rule" "rebuild-zack-model-rule" {
+  name                = "rebuild-zack-model-rule"
   schedule_expression = "rate(24 hours)"
 }
 
-resource "aws_cloudwatch_event_target" "ingest-russell-1000-rule" {
-  target_id = "ingest-russell-1000-rule"
+resource "aws_cloudwatch_event_target" "rebuild-zack-model-rule" {
+  target_id = "rebuild-zack-model-rule"
   arn       = aws_ecs_cluster.ecs-cluster.arn
-  rule      = aws_cloudwatch_event_rule.ingest-russell-1000-rule.name
-  role_arn  = aws_iam_role.ingest-russell-1000-rule.arn
+  rule      = aws_cloudwatch_event_rule.rebuild-zack-model-rule.name
+  role_arn  = aws_iam_role.rebuild-zack-model-rule.arn
 
   ecs_target {
     task_count          = 1
-    task_definition_arn = aws_ecs_task_definition.ingest-russell-1000.arn
+    task_definition_arn = aws_ecs_task_definition.rebuild-zack-model.arn
     launch_type         = "FARGATE"
     network_configuration {
       subnets          = module.vpc.public_subnets
