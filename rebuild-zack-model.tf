@@ -13,10 +13,7 @@ resource "aws_ecs_task_definition" "rebuild-zack-model" {
       command   = ["java", "-cp", "bdozer-api-batch-jobs-0.0.1-SNAPSHOT.jar", "co.bdozer.jobs.RebuildZackModelsKt"]
       secrets   = [
         { name : "ELASTICSEARCH_CREDENTIAL", valueFrom : aws_secretsmanager_secret.elasticsearch_credential.arn },
-        { name : "ELASTICSEARCH_ENDPOINT", valueFrom : aws_secretsmanager_secret.elasticsearch_endpoint.arn },
         { name : "JDBC_PASSWORD", valueFrom : aws_secretsmanager_secret.jdbc_password.arn },
-        { name : "JDBC_URL", valueFrom : aws_secretsmanager_secret.jdbc_url.arn },
-        { name : "JDBC_USERNAME", valueFrom : aws_secretsmanager_secret.jdbc_username.arn },
         { name : "POLYGON_API_KEY", valueFrom : aws_secretsmanager_secret.polygon_api_key.arn },
         { name : "QUANDL_API_KEY", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
         { name : "CLIENT_ID", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
@@ -24,6 +21,9 @@ resource "aws_ecs_task_definition" "rebuild-zack-model" {
       ],
       environment = [
         { name : "API_ENDPOINT", value: "https://api.bdozer.co" },
+        { name : "ELASTICSEARCH_ENDPOINT", value: "https://elastic.bdozer.co" },
+        { name : "JDBC_URL", value: "jdbc:postgresql://postgres.bdozer.co:5432/postgres" },
+        { name : "JDBC_USERNAME", value: "postgres" },
       ],
       logConfiguration = {
         logDriver = "awslogs"
