@@ -16,8 +16,8 @@ resource "aws_ecs_task_definition" "sync-zacks-data" {
         { name : "JDBC_PASSWORD", valueFrom : aws_secretsmanager_secret.jdbc_password.arn },
         { name : "POLYGON_API_KEY", valueFrom : aws_secretsmanager_secret.polygon_api_key.arn },
         { name : "QUANDL_API_KEY", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
-        { name : "CLIENT_ID", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
-        { name : "CLIENT_SECRET", valueFrom : aws_secretsmanager_secret.quandl_api_key.arn },
+        { name : "CLIENT_ID", valueFrom : aws_secretsmanager_secret.client_id.arn },
+        { name : "CLIENT_SECRET", valueFrom : aws_secretsmanager_secret.client_secret.arn },
       ],
       environment = [
         { name : "API_ENDPOINT", value: "https://api.bdozer.co" },
